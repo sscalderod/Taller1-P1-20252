@@ -5,3 +5,6 @@ db.sqlite3
 __pycache__/
 .DS_Store
 media/
+openAI.env
+*.env
+.env
