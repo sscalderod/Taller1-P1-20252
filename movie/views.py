@@ -5,6 +5,8 @@ import matplotlib
 import io 
 import urllib, base64
 
+
+
 from .models import Movie
 # Create your views here.
 
@@ -86,3 +88,4 @@ def statistics_view(request):
     buffer.close()
 
     return render(request, 'statistics.html', {'graphic_year': graphic_year, 'graphic_genre': graphic_genre})
+

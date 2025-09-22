@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recomendador de Películas</title>
+</head>
+<body>
+    <h1>Recomendador de Películas</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="prompt">Describe una película que quieras ver:</label><br>
+        <input type="text" id="prompt" name="prompt" placeholder="Ej: película de la segunda guerra mundial" size="50">
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if recommendation %}
+        <hr>
+        <h2>Película recomendada</h2>
+        <p><strong>{{ recommendation.title }}</strong></p>
+        <p>{{ recommendation.description }}</p>
+        {% if recommendation.image %}
+            <img src="{{ recommendation.image }}" width="200">
+        {% endif %}
+        <p>Similitud: {{ recommendation.score }}</p>
+    {% endif %}
+</body>
+</html>
+
+{% endblock content %}
