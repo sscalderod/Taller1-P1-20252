@@ -32,7 +32,7 @@ flowchart LR
 2. Cuando el usuario envía su consulta, se genera su embedding con el mismo modelo.
 3. Se calcula la similitud coseno contra cada película y se devuelve la de mayor puntaje.
 
-La base de datos incluida (`db.sqlite3`) ya trae **96 películas con sus embeddings**, así que el catálogo funciona sin generarlos de nuevo. Para las recomendaciones sí se necesita una API key de OpenAI, porque cada consulta se convierte en embedding en el momento.
+El repositorio incluye los datos como fixtures (`movie/fixtures/movies.json` y `news/fixtures/news.json`): **96 películas con sus embeddings** y 3 noticias. Así el catálogo funciona sin volver a generarlos. Para las recomendaciones sí se necesita una API key de OpenAI, porque cada consulta se convierte en embedding en el momento.
 
 ## Comandos de gestión
 
@@ -60,31 +60,39 @@ git clone https://github.com/sscalderod/Taller1-P1-20252.git
 cd Taller1-P1-20252
 python3 -m venv .venv
 source .venv/bin/activate
-pip install django pillow pandas matplotlib openai python-dotenv numpy requests
+pip install -r requirements.txt
 ```
 
-Crea un archivo `openAI.env` en la raíz con tu API key de OpenAI (está en `.gitignore`, así que no se sube):
+**Configuración.** Los secretos se leen de variables de entorno y nunca se escriben en el código. Ninguno de estos archivos se sube al repositorio:
 
-```
-openai_apikey=sk-...
+```bash
+cp .env.example .env              # DJANGO_SECRET_KEY, DJANGO_DEBUG, DJANGO_ALLOWED_HOSTS
+echo "openai_apikey=sk-..." > openAI.env
 ```
 
-Luego:
+Con `DJANGO_DEBUG=True` y sin `DJANGO_SECRET_KEY`, la app usa una clave temporal, lo cual solo sirve para desarrollo local. Con `DEBUG` apagado, `DJANGO_SECRET_KEY` es obligatoria y la app no arranca sin ella.
+
+**Base de datos y datos de ejemplo.**
 
 ```bash
 python manage.py migrate
+python manage.py loaddata movies news      # 96 películas con embeddings y 3 noticias
+python manage.py createsuperuser           # opcional, para entrar a /admin/
 python manage.py runserver
 ```
 
-Abre http://127.0.0.1:8000/. Para regenerar los datos desde cero: `add_movies_db`, luego `update_movies_from_csv` y por último `movie_embeddings`.
+Abre http://127.0.0.1:8000/. Para regenerar los datos desde cero, ejecuta `add_movies_db`, luego `update_movies_from_csv` y por último `movie_embeddings`.
+
+**Para desplegar** en un servidor: `DJANGO_DEBUG=False`, una `DJANGO_SECRET_KEY` propia y la IP o el dominio del servidor en `DJANGO_ALLOWED_HOSTS`.
 
 ## Estructura
 
 ```
 moviereviews/       configuración del proyecto, URLs y plantilla base
-movie/              modelo Movie, catálogo, estadísticas y comandos de gestión
+movie/              modelo Movie, catálogo, estadísticas, comandos de gestión y fixture de películas
 recommendations/    vista de recomendación por embeddings
-news/               modelo y vista de noticias
+news/               modelo, vista y fixture de noticias
+.env.example        plantilla de configuración
 movies_initial.csv  dataset original de películas
 cvs_to_json.py      conversión del CSV a JSON
 ```

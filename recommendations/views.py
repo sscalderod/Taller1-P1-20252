@@ -7,7 +7,11 @@ from movie.models import Movie
 
 # Create your views here.
 load_dotenv("./openAI.env")
-client = OpenAI(api_key=os.environ.get("openai_apikey"))
+
+
+def get_openai_client():
+    # Se crea al recibir una consulta para que la app (y manage.py) arranque sin API key
+    return OpenAI(api_key=os.environ.get("openai_apikey"))
 
 def cosine_similarity(a, b):
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
@@ -19,6 +23,7 @@ def recommend(request):
         prompt = request.POST.get("prompt")
 
         # ✅ Generar embedding del prompt
+        client = get_openai_client()
         response = client.embeddings.create(
             input=[prompt],
             model="text-embedding-3-small"

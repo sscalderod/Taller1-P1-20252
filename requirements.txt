@@ -1,4 +1,4 @@
-django 
+Django>=5.2,<6.0
 Pillow
 pandas
 matplotlib
@@ -6,4 +6,3 @@ openai
 python-dotenv
 numpy
 requests
-env

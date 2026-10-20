@@ -11,10 +11,17 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os
+
+from django.core.exceptions import ImproperlyConfigured
+from django.core.management.utils import get_random_secret_key
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Variables de entorno desde .env (no se sube al repositorio; ver .env.example)
+load_dotenv(BASE_DIR / ".env")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -22,13 +29,23 @@ MEDIA_URL = '/media/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-=^dugi(duxbfa(&=ce*qf!3rzkrpd^w(el!nn=hss)gv)gjhxn"
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in ("1", "true", "yes")
 
-ALLOWED_HOSTS = ['3.85.137.13', 'localhost', '127.0.0.1']
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+if not SECRET_KEY:
+    if DEBUG:
+        # Solo para desarrollo local: clave temporal que cambia en cada arranque
+        SECRET_KEY = get_random_secret_key()
+    else:
+        raise ImproperlyConfigured("Define DJANGO_SECRET_KEY en el entorno o en .env")
+
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+    if host.strip()
+]
 
 
 # Application definition
@@ -129,6 +146,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    'moviereviews/static',
+    BASE_DIR / "moviereviews" / "static",
 ]

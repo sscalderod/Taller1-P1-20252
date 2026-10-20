@@ -1,0 +1,29 @@
+[
+{
+  "model": "news.news",
+  "pk": 1,
+  "fields": {
+    "headline": "Distrito anunció feria de empleo con 4 000 vacantes este 21 de agosto",
+    "body": "La Secretaría Distrital de Desarrollo Económico (SDDE) de Bogotá anunció una feria de empleo que se llevará a cabo el jueves 21 de agosto en la discoteca Theatron, ubicada en la calle 58 #10-32 en Chapinero, desde las 9:00 a.m. hasta las 3:00 p.m. Esta iniciativa, parte del programa “Talento Capital”, busca facilitar la inserción laboral, especialmente para los jóvenes ofreciendo 4 000 vacantes en sectores como ventas logística salud tecnología gastronomía y más De estas vacantes, 437 son para cargos profesionales y 780 no requieren experiencia previa Participarán 45 organizaciones con oportunidades laborales para personas con o sin experiencia y con formación desde bachillerato Algunos de los cargos ofrecidos incluyen abogado agente call center asesor comercial auxiliar contable cocinero médico general técnico eléctrico entre muchos otros.",
+    "date": "2025-08-19"
+  }
+},
+{
+  "model": "news.news",
+  "pk": 2,
+  "fields": {
+    "headline": "¡Trabajo sí hay! Feria de Empleo en Bogotá con 100 vacantes para asesores de call center",
+    "body": "La Alcaldía de Bogotá, a través de \"Talento Capital\" de la SDDE, organizará el lunes 11 de agosto de 2025 una feria de empleo con 100 vacantes para asesor de call center en alianza con Grupo Cos. Se realizará en la zona industrial de Puente Aranda (carrera 42 Bis #13-90, site 3) de 9 a.m. a 2 p.m. Requisitos: ser bachiller, tener disposición para aprender, llevar hoja de vida actualizada y confirmar asistencia vía formulario. Los seleccionados recibirán beneficios como convenios universitarios, acceso a gimnasio, zona gamer, área de belleza, mesas de ping-pong y billar, plan de ascenso y descuentos en restaurantes, ropa y gimnasios Bodytech. La participación es gratuita y sin intermediarios.",
+    "date": "2025-04-10"
+  }
+},
+{
+  "model": "news.news",
+  "pk": 3,
+  "fields": {
+    "headline": "Vacantes para jóvenes a través del SENA: son más de 20 mil en todo el país",
+    "body": "El SENA, mediante su Agencia Pública de Empleo, llevará a cabo el 12 de agosto de 2025 la feria nacional “ExpoEmpleo SENA Joven 2025”, ofreciendo más de 20 000 vacantes en diversas regiones y perfiles. Habrá charlas y actividades sobre formación, emprendimiento, elaboración de hoja de vida y entrevistas laborales. Se realizará simultáneamente en ciudades como Bogotá, Medellín, Cali, Cartagena, Bucaramanga, entre otras.",
+    "date": "2025-08-14"
+  }
+}
+]
